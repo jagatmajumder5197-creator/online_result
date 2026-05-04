@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Result Jagat</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="container">
+
+      <div class="school-title">SHRIPUR KINDERGARTEN SCHOOL</div>
+      <div class="system-title">Online_Result_Jagat</div>
+      <div class="exam-title">First Summative Evaluation_2026</div>
+
+      <div class="card">
+        <div class="section-label">select class_sec</div>
+        <select id="classSec">
+          <option value="">Select class</option>
+        </select>
+
+        <div class="section-label">select students_name</div>
+        <select id="studentName">
+          <option value="">Select student</option>
+        </select>
+
+        <button id="viewBtn" class="btn">View Result</button>
+      </div>
+
+      <div id="resultCard" class="card result-card hidden">
+        <div class="result-header">Student Result</div>
+
+        <div class="info-grid">
+          <div><span class="label">Class:</span> <span id="outClass"></span></div>
+          <div><span class="label">Name:</span> <span id="outName"></span></div>
+          <div><span class="label">Father:</span> <span id="outFather"></span></div>
+          <div><span class="label">Roll:</span> <span id="outRoll"></span></div>
+          <div><span class="label">Rank:</span> <span id="outRank"></span></div>
+          <div><span class="label">Summary:</span> <span id="outSummary"></span></div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Total</th>
+                <th>Obtained</th>
+                <th>Grade</th>
+                <th>GPA</th>
+              </tr>
+            </thead>
+            <tbody id="subjectBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
