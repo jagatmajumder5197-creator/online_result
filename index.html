@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Online Result Jagat</title>
+  <title>Online Result Portal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="page">
     <div class="container">
+      <div class="school-header">
+        <div class="school-title">SHRIPUR KINDERGARTEN SCHOOL</div>
+        <div class="exam-title">First Summative Evaluation_2026</div>
+      </div>
 
-      <div class="school-title">SHRIPUR KINDERGARTEN SCHOOL</div>
-      <div class="system-title">Online_Result_Jagat</div>
-      <div class="exam-title">First Summative Evaluation_2026</div>
-
-      <div class="card">
-        <div class="section-label">select class_sec</div>
+      <!-- Selection Section -->
+      <div class="card no-print">
+        <div class="section-label">Select Class</div>
         <select id="classSec">
           <option value="">Select class</option>
         </select>
 
-        <div class="section-label">select students_name</div>
+        <div class="section-label">Select Student Name</div>
         <select id="studentName">
           <option value="">Select student</option>
         </select>
@@ -28,20 +29,29 @@
         <button id="viewBtn" class="btn">View Result</button>
       </div>
 
-      <div id="resultCard" class="card result-card hidden">
-        <div class="result-header">Student Result</div>
+      <!-- Result Card (Design follows image) -->
+      <div id="resultCard" class="result-display-card hidden">
+        <div id="outName" class="student-main-name"></div>
 
-        <div class="info-grid">
-          <div><span class="label">Class:</span> <span id="outClass"></span></div>
-          <div><span class="label">Name:</span> <span id="outName"></span></div>
-          <div><span class="label">Father:</span> <span id="outFather"></span></div>
-          <div><span class="label">Roll:</span> <span id="outRoll"></span></div>
-          <div><span class="label">Rank:</span> <span id="outRank"></span></div>
-          <div><span class="label">Summary:</span> <span id="outSummary"></span></div>
-        </div>
+        <!-- Upper Profile Table -->
+        <table class="info-table">
+          <tr>
+            <td class="info-label">Father's Name</td>
+            <td id="outFather"></td>
+          </tr>
+          <tr>
+            <td class="info-label">Class_Section</td>
+            <td id="outClass"></td>
+          </tr>
+          <tr>
+            <td class="info-label">Roll No.</td>
+            <td id="outRoll"></td>
+          </tr>
+        </table>
 
+        <!-- Main Marks Table -->
         <div class="table-wrap">
-          <table>
+          <table class="main-marks-table">
             <thead>
               <tr>
                 <th>Subject</th>
@@ -54,11 +64,31 @@
             <tbody id="subjectBody"></tbody>
           </table>
         </div>
-      </div>
 
+        <!-- Lower Summary Table (As per image) -->
+        <table class="summary-table">
+          <tr class="summary-header">
+            <td>Total Obtained Marks</td>
+            <td>Percentage</td>
+            <td>Grade</td>
+            <td>Rank</td>
+          </tr>
+          <tr class="summary-values">
+            <td id="outTotalText"></td>
+            <td id="outPercentText"></td>
+            <td id="outGradeText"></td>
+            <td id="outRankText"></td>
+          </tr>
+        </table>
+
+        <div class="download-section no-print">
+          <button class="download-btn" onclick="window.print()">
+            <span class="icon">⬇</span> Download Result
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
