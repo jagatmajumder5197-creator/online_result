@@ -2,121 +2,101 @@ const API_URL = "https://script.google.com/macros/s/AKfycbzttIaoKv95G4NMjc6MYxcc
 
 let allData = [];
 
-const classSecEl = document.getElementById("classSec");
-const studentNameEl = document.getElementById("studentName");
-const viewBtn = document.getElementById("viewBtn");
-const resultCard = document.getElementById("resultCard");
-
-const outClass = document.getElementById("outClass");
-const outName = document.getElementById("outName");
-const outFather = document.getElementById("outFather");
-const outRoll = document.getElementById("outRoll");
-const outRank = document.getElementById("outRank");
-const outSummary = document.getElementById("outSummary");
-const subjectBody = document.getElementById("subjectBody");
-
-function cleanText(value) {
-  return (value ?? "").toString().trim();
-}
-
-function uniqueValues(arr, key) {
-  return [...new Set(arr.map(item => cleanText(item[key])).filter(Boolean))];
-}
-
-function loadClasses() {
-  const classes = uniqueValues(allData, "class_sec");
-  classSecEl.innerHTML = '<option value="">Select class</option>';
-  classes.forEach(cls => {
-    const opt = document.createElement("option");
-    opt.value = cls;
-    opt.textContent = cls;
-    classSecEl.appendChild(opt);
-  });
-}
-
-function loadStudents(selectedClass) {
-  const students = allData.filter(item => cleanText(item.class_sec) === selectedClass);
-  studentNameEl.innerHTML = '<option value="">Select student</option>';
-  students.forEach(stu => {
-    const opt = document.createElement("option");
-    opt.value = cleanText(stu.name);
-    opt.textContent = cleanText(stu.name);
-    studentNameEl.appendChild(opt);
-  });
-}
-
-function renderResult(student) {
-  outClass.textContent = cleanText(student.class_sec);
-  outName.textContent = cleanText(student.name);
-  outFather.textContent = cleanText(student.father);
-  outRoll.textContent = cleanText(student.roll);
-  outRank.textContent = cleanText(student.rank);
-
-  const s = student.summary || {};
-  outSummary.textContent =
-    "Total: " + (s.total ?? 0) +
-    " | Percent: " + (s.percent ?? 0) + "%" +
-    " | Grade: " + (s.grade ?? "");
-
-  subjectBody.innerHTML = "";
-
-  const subjects = Array.isArray(student.subjects) ? student.subjects : [];
-  subjects.forEach(sub => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${cleanText(sub.name)}</td>
-      <td>${cleanText(sub.fm)}</td>
-      <td>${cleanText(sub.score)}</td>
-      <td>${cleanText(sub.percent)}%</td>
-      <td>${cleanText(sub.grade)}</td>
-    `;
-    subjectBody.appendChild(tr);
-  });
-
-  resultCard.classList.remove("hidden");
+// Grade Color Logic
+function getGradeClass(grade) {
+  if (grade === "A+") return "grade-aplus";
+  if (grade === "B") return "grade-b";
+  return "";
 }
 
 async function fetchData() {
   try {
     const res = await fetch(API_URL);
     const data = await res.json();
-    allData = Array.isArray(data) ? data : [];
+    allData = data;
     loadClasses();
-  } catch (error) {
-    console.error("Data load failed:", error);
-    alert("Could not load result data.");
-  }
+  } catch (e) { console.error("Data load error"); }
 }
 
-classSecEl.addEventListener("change", function () {
-  const selectedClass = cleanText(this.value);
+function loadClasses() {
+  const classes = [...new Set(allData.map(item => item.CLASS))].filter(Boolean); //
+  const classSecEl = document.getElementById("classSec");
+  classes.forEach(cls => {
+    let opt = document.createElement("option");
+    opt.value = opt.textContent = cls;
+    classSecEl.appendChild(opt);
+  });
+}
+
+document.getElementById("classSec").addEventListener("change", function() {
+  const selectedClass = this.value;
+  const studentNameEl = document.getElementById("studentName");
   studentNameEl.innerHTML = '<option value="">Select student</option>';
-  resultCard.classList.add("hidden");
-  if (selectedClass) {
-    loadStudents(selectedClass);
-  }
+  const filtered = allData.filter(item => item.CLASS === selectedClass);
+  filtered.forEach(stu => {
+    let opt = document.createElement("option");
+    opt.value = opt.textContent = stu.STUDENTS_NAME; //
+    studentNameEl.appendChild(opt);
+  });
 });
 
-viewBtn.addEventListener("click", function () {
-  const selectedClass = cleanText(classSecEl.value);
-  const selectedStudent = cleanText(studentNameEl.value);
+document.getElementById("viewBtn").addEventListener("click", function() {
+  const selectedClass = document.getElementById("classSec").value;
+  const selectedName = document.getElementById("studentName").value;
+  const student = allData.find(item => item.CLASS === selectedClass && item.STUDENTS_NAME === selectedName);
 
-  if (!selectedClass || !selectedStudent) {
-    alert("Please select both class and student.");
-    return;
-  }
-
-  const student = allData.find(item =>
-    cleanText(item.class_sec) === selectedClass &&
-    cleanText(item.name) === selectedStudent
-  );
-
-  if (!student) {
-    alert("Student result not found.");
-    return;
-  }
-
-  renderResult(student);
+  if (student) renderResult(student);
 });
+
+function renderResult(student) {
+  document.getElementById("outName").textContent = student.STUDENTS_NAME;
+  document.getElementById("outFather").textContent = student.FATHERS_NAME; //
+  document.getElementById("outClass").textContent = student.CLASS;
+  document.getElementById("outRoll").textContent = student.ROLL; //
+
+  // Lower Summary Mapping (Mirror Logic)
+  document.getElementById("outTotalText").textContent = (student.GTT || 0) + "/" + (student.FM || 0); //
+  document.getElementById("outPercentText").textContent = (student.PCGTT || 0) + "%"; //
+  document.getElementById("outGradeText").innerHTML = `<span class="${getGradeClass(student.GDGTT)}">${student.GDGTT || ""}</span>`; //
+  document.getElementById("outRankText").textContent = student.ORD || ""; //
+
+  const subjectBody = document.getElementById("subjectBody");
+  subjectBody.innerHTML = "";
+
+  // Full Subject Mapping based on your request
+  const subjects = [
+    { n: "Bengali", fm: "FMB", sc: "TTB", pc: "PCB", gd: "GDB" },
+    { n: "English", fm: "FME", sc: "TTE", pc: "PCE", gd: "GDE" },
+    { n: "Maths", fm: "FMM", sc: "TTM", pc: "PCM", gd: "GDM" },
+    { n: "Hindi", fm: "FMHN", sc: "TTHN", pc: "PCHN", gd: "GDHN" },
+    { n: "Computer", fm: "FMCM", sc: "TTCM", pc: "PCCM", gd: "GDCM" },
+    { n: "Bengali Rhyme", fm: "FMRYMB", sc: "TTRYMB", pc: "PCRYMB", gd: "GDRYMB" },
+    { n: "English Rhyme", fm: "FMRYME", sc: "TTRYME", pc: "PCRYME", gd: "GDRYME" },
+    { n: "GK", fm: "FMGK", sc: "TTGK", pc: "PCGK", gd: "GDGK" },
+    { n: "EVS", fm: "FMEV", sc: "TTEV", pc: "PCEV", gd: "GDEV" },
+    { n: "History", fm: "FMHS", sc: "TTHS", pc: "PCHS", gd: "GDHS" },
+    { n: "Geography", fm: "FMG", sc: "TTG", pc: "PCG", gd: "GDG" },
+    { n: "Life Science", fm: "FMLSC", sc: "TTLSC", pc: "PCLSC", gd: "GDLSC" },
+    { n: "Physical Science", fm: "FMPSC", sc: "TTPSC", pc: "PCPSC", gd: "GDPSC" }
+  ];
+
+  subjects.forEach(sub => {
+    const fullM = student[sub.fm];
+    // Condition: If Full Marks > 0 or not empty, show row
+    if (fullM && fullM != "0") {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td style="text-align:left; padding-left:20px;">${sub.n}</td>
+        <td>${fullM}</td>
+        <td>${student[sub.sc] || 0}</td>
+        <td>${student[sub.pc] || 0}%</td>
+        <td class="${getGradeClass(student[sub.gd])}">${student[sub.gd] || ""}</td>
+      `;
+      subjectBody.appendChild(tr);
+    }
+  });
+
+  document.getElementById("resultCard").classList.remove("hidden");
+}
 
 fetchData();
