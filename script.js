@@ -37,7 +37,6 @@ function loadClasses() {
 function loadStudents(selectedClass) {
   const students = allData.filter(item => cleanText(item.class_sec) === selectedClass);
   studentNameEl.innerHTML = '<option value="">Select student</option>';
-
   students.forEach(stu => {
     const opt = document.createElement("option");
     opt.value = cleanText(stu.name);
@@ -52,20 +51,24 @@ function renderResult(student) {
   outFather.textContent = cleanText(student.father);
   outRoll.textContent = cleanText(student.roll);
   outRank.textContent = cleanText(student.rank);
-  outSummary.textContent = cleanText(student.summary);
+
+  const s = student.summary || {};
+  outSummary.textContent =
+    "Total: " + (s.total ?? 0) +
+    " | Percent: " + (s.percent ?? 0) + "%" +
+    " | Grade: " + (s.grade ?? "");
 
   subjectBody.innerHTML = "";
 
   const subjects = Array.isArray(student.subjects) ? student.subjects : [];
-
   subjects.forEach(sub => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${cleanText(sub.subject)}</td>
-      <td>${cleanText(sub.total)}</td>
-      <td>${cleanText(sub.obtained)}</td>
+      <td>${cleanText(sub.name)}</td>
+      <td>${cleanText(sub.fm)}</td>
+      <td>${cleanText(sub.score)}</td>
+      <td>${cleanText(sub.percent)}%</td>
       <td>${cleanText(sub.grade)}</td>
-      <td>${cleanText(sub.gpa)}</td>
     `;
     subjectBody.appendChild(tr);
   });
@@ -77,7 +80,6 @@ async function fetchData() {
   try {
     const res = await fetch(API_URL);
     const data = await res.json();
-
     allData = Array.isArray(data) ? data : [];
     loadClasses();
   } catch (error) {
@@ -90,7 +92,6 @@ classSecEl.addEventListener("change", function () {
   const selectedClass = cleanText(this.value);
   studentNameEl.innerHTML = '<option value="">Select student</option>';
   resultCard.classList.add("hidden");
-
   if (selectedClass) {
     loadStudents(selectedClass);
   }
