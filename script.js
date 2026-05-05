@@ -50,23 +50,34 @@ function renderResult(student) {
 
   const subjectBody = document.getElementById("subjectBody");
   subjectBody.innerHTML = "";
-  const subjects = [
-    {n: "Bengali", fm: "FMB", sc: "TTB", pc: "PCB", gd: "GDB"},
-    {n: "English", fm: "FME", sc: "TTE", pc: "PCE", gd: "GDE"},
-    {n: "Maths", fm: "FMM", sc: "TTM", pc: "PCM", gd: "GDM"},
-    {n: "Hindi", fm: "FMHN", sc: "TTHN", pc: "PCHN", gd: "GDHN"},
-    {n: "Computer", fm: "FMCM", sc: "TTCM", pc: "PCCM", gd: "GDCM"},
-    {n: "History", fm: "FMHS", sc: "TTHS", pc: "PCHS", gd: "GDHS"},
-    {n: "Geography", fm: "FMG", sc: "TTG", pc: "PCG", gd: "GDG"}
-  ];
 
-  subjects.forEach(sub => {
-    if (student[sub.fm] && student[sub.fm] != 0) {
+  // সাবজেক্টের সুন্দর নাম দেখানোর ম্যাপিং
+  const nameMap = {
+    "B": "Bengali", "E": "English", "M": "Maths", "HN": "Hindi", 
+    "CM": "Computer", "HS": "History", "G": "Geography", 
+    "GK": "G.K.", "EV": "E.V.S.", "RYME": "Rhymes (Eng)", 
+    "RYMB": "Rhymes (Ben)", "DRAW": "Drawing"
+  };
+
+  // শিটের সব কলাম চেক করে অটোমেটিক সাবজেক্ট বের করার লজিক
+  Object.keys(student).forEach(key => {
+    // যদি কলামের নাম 'FM' দিয়ে শুরু হয় (যেমন FMB, FMGK) এবং মান ০-এর বেশি হয়
+    if (key.startsWith("FM") && key !== "FM" && student[key] > 0) {
+      const suffix = key.substring(2); // যেমন: 'B', 'GK', 'RYME'
+      const displayName = nameMap[suffix] || suffix; 
+      
       const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${sub.n}</td><td>${student[sub.fm]}</td><td>${student[sub.sc] || 0}</td><td>${student[sub.pc] || 0}%</td><td>${student[sub.gd] || ""}</td>`;
+      tr.innerHTML = `
+        <td style="text-align:left; padding-left:15px;">${displayName}</td>
+        <td>${student[key]}</td>
+        <td>${student["TT" + suffix] || 0}</td>
+        <td>${student["PC" + suffix] || 0}%</td>
+        <td>${student["GD" + suffix] || ""}</td>
+      `;
       subjectBody.appendChild(tr);
     }
   });
+
   document.getElementById("resultCard").classList.remove("hidden");
 }
 fetchData();
