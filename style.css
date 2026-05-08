@@ -15,7 +15,13 @@ body { font-family: sans-serif; background-color: #f5f9ff; margin: 0; padding: 1
     font-weight: bold;
     margin: 5px 0;
 }
-.exam-title { font-size: 14px; color: #666; }
+.exam-title {
+    font-size: 18px;      /* সাইজ বড় করার জন্য */
+    color: #333;         /* রঙ আরও গাঢ় করার জন্য */
+    font-weight: bold;    /* বোল্ড করার জন্য */
+    margin-top: 5px;
+    display: block;
+}
 
 .card { padding: 15px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px; }
 .section-label { font-size: 14px; font-weight: bold; margin-bottom: 5px; color: #444; }
