@@ -35,3 +35,36 @@ td, th { border: 1px solid var(--border-color); padding: 10px; text-align: cente
   .school-title { font-size: 18px; }
   .summary-values td { font-size: 15px; }
 }
+/* 1. Blue download box (only 'Download' text will be displayed) */
+.blue-download {
+    background-color: #007bff;
+    color: white !important;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 20px;
+    display: block;
+}
+
+/* 2. Green verified text */
+.verified-text {
+    color: #28a745;
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* 3. Class for bolding numbers or digits only */
+.bold-digit {
+    font-weight: 900 !important;
+    color: #000;
+}
+
+/* 4. Display controls for the downloaded image/print */
+@media print {
+    .print-only { display: block !important; }
+    .no-print { display: none !important; }
+}
+.print-only { display: none; }
