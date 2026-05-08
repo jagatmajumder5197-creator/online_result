@@ -9,7 +9,12 @@ body { font-family: sans-serif; background-color: #f5f9ff; margin: 0; padding: 1
 
 .school-header { text-align: center; margin-bottom: 20px; }
 .school-title { font-size: 20px; font-weight: bold; color: var(--blue-theme); }
-.system-title { font-size: 16px; color: #d9534f; font-weight: bold; margin: 5px 0; }
+.system-title {
+    font-size: 16px;
+    color: #87CEEB; /* এটি সুন্দর একটি Light Blue শেড */
+    font-weight: bold;
+    margin: 5px 0;
+}
 .exam-title { font-size: 14px; color: #666; }
 
 .card { padding: 15px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px; }
@@ -68,3 +73,21 @@ td, th { border: 1px solid var(--border-color); padding: 10px; text-align: cente
     .no-print { display: none !important; }
 }
 .print-only { display: none; }
+
+/* ড্রপডাউন বক্সগুলো মাঝখানে আনার জন্য */
+select {
+    display: block;
+    margin: 10px auto !important; /* মাঝখানে নেবে */
+    width: 80% !important;
+    max-width: 300px;
+    font-size: 18px !important; /* লেখা বড় হবে */
+    font-weight: bold !important; /* লেখা বোল্ড হবে */
+    text-align: center;
+}
+
+/* লেবেলগুলো মাঝখানে আনার জন্য */
+.section-label {
+    text-align: center;
+    display: block;
+    font-size: 16px;
+}
