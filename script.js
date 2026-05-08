@@ -56,8 +56,8 @@ function renderResult(student) {
     // Subject name mapping
     const nameMap = { 
         "B": "Bengali", "E": "English", "M": "Maths", "HN": "Hindi", 
-        "CM": "Computer", "HS": "History", "G": "Geography", "GK": "G.K.", 
-        "EV": "E.V.S.", "RYME": "Rhymes (Eng)", "RYMB": "Rhymes (Ben)", "DRAW": "Drawing" 
+        "CM": "Computer", "HS": "History", "G": "Geography", "GK": "GK", 
+        "EV": "EVS", "RYME": "Rhyme (Eng)", "RYMB": "Rhyme (Beng)", "DRAW": "Drawing" 
     }; 
     
     // Logic to dynamically extract subjects from columns
