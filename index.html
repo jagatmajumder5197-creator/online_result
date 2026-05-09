@@ -14,14 +14,24 @@
         <h1 class="school-name">SHRIPUR KG SCHOOL</h1>
         
         <div class="search-section">
-            <input type="text" id="studentId" placeholder="Select Class/Section (Unique I_D)">
-            <button class="btn-jagat" onclick="getResult()">VIEW SCORE</button>
+            <select id="classSec">
+                <option value="">Select Class/Section</option>
+            </select>
+            <select id="studentName">
+                <option value="">Select Student Name</option>
+            </select>
+            <button id="viewBtn" class="btn-jagat">VIEW SCORE</button>
         </div>
 
-        <div id="resultArea" class="result-card" style="display: none;">
+        <div id="resultCard" class="result-card hidden">
             <div class="card-main">
-                <i class="fas fa-check-circle main-tick"></i> <span id="displayName">Student Name</span>
-                <button class="download-btn"><i class="fas fa-download"></i></button> </div>
+                <i class="fas fa-check-circle main-tick"></i> <span id="outName">Student Name</span>
+                <button class="download-btn" onclick="window.print()"><i class="fas fa-download"></i></button> </div>
+
+            <div class="result-summary">
+                <p>Roll: <span id="outRoll" class="bold-digit"></span></p>
+                <p>Total: <span id="outTotalText" class="bold-digit"></span></p>
+            </div>
             
             <div class="verified-badge">
                 <i class="fas fa-certificate"></i>
@@ -34,6 +44,7 @@
             <strong>Jagat Infrastructure with Algorithm & JS</strong>
         </div>
     </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
