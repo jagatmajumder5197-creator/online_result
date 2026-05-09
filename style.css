@@ -1,99 +1,63 @@
-:root {
-  --blue-theme: #1a4a8e;
-  --light-blue-bg: #f0f7ff;
-  --border-color: #dbeafe;
+/* Jagat Infra Mobile Style */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-body { font-family: sans-serif; background-color: #f5f9ff; margin: 0; padding: 15px; }
-.container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
 
-.school-header { text-align: center; margin-bottom: 20px; }
-.school-title { font-size: 20px; font-weight: bold; color: var(--blue-theme); }
-.system-title {
+.school-logo { width: 80px; margin-bottom: 10px; }
+.school-name { font-family: 'Cinzel', serif; color: #1a237e; font-size: 22px; margin: 10px 0; }
+
+/* Input Box - Deep Blue Text */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
     font-size: 16px;
-    color: #87CEEB; /* এটি সুন্দর একটি Light Blue শেড */
+    color: #1a237e; /* এই সেই Deep Blue কালার */
     font-weight: bold;
-    margin: 5px 0;
-}
-.exam-title {
-    font-size: 18px;      /* সাইজ বড় করার জন্য */
-    color: #333;         /* রঙ আরও গাঢ় করার জন্য */
-    font-weight: bold;    /* বোল্ড করার জন্য */
-    margin-top: 5px;
-    display: block;
+    outline: none;
+    text-align: center;
 }
 
-.card { padding: 15px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px; }
-.section-label { font-size: 14px; font-weight: bold; margin-bottom: 5px; color: #444; }
-select, .btn { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; }
-.btn { background: var(--blue-theme); color: white; border: none; cursor: pointer; font-size: 16px; }
-
-.student-main-name { text-align: center; font-size: 22px; font-weight: bold; color: var(--blue-theme); margin-bottom: 15px; }
-
-/* Tables */
-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-td, th { border: 1px solid var(--border-color); padding: 10px; text-align: center; font-size: 14px; }
-
-.info-label { background-color: #fcfcfc; text-align: left; width: 35%; color: #555; }
-.main-marks-table th, .summary-header td { background-color: var(--light-blue-bg); color: var(--blue-theme); font-weight: bold; }
-.summary-values td { font-size: 18px; font-weight: bold; color: var(--blue-theme); }
-
-.grade-aplus { color: #2e7d32; font-weight: bold; }
-.grade-b { color: #ed6c02; font-weight: bold; }
-
-.hidden { display: none; }
-@media (max-width: 600px) {
-  .school-title { font-size: 18px; }
-  .summary-values td { font-size: 15px; }
+input::placeholder {
+    color: #1a237e;
+    opacity: 0.6;
 }
-/* 1. Blue download box (only 'Download' text will be displayed) */
-.blue-download {
-    background-color: #007bff;
-    color: white !important;
-    padding: 10px 30px;
+
+.btn-jagat {
+    background-color: #1a237e;
+    color: white;
+    padding: 14px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 18px;
-    margin-top: 20px;
-    display: block;
-}
-
-/* 2. Green verified text */
-.verified-text {
-    color: #28a745;
-    font-size: 18px;
-    margin-top: 20px;
-    text-align: center;
-}
-
-/* 3. Class for bolding numbers or digits only */
-.bold-digit {
-    font-weight: 900 !important;
-    color: #000;
-}
-
-/* 4. Display controls for the downloaded image/print */
-@media print {
-    .print-only { display: block !important; }
-    .no-print { display: none !important; }
-}
-.print-only { display: none; }
-
-/* ড্রপডাউন বক্সগুলো মাঝখানে আনার জন্য */
-select {
-    display: block;
-    margin: 10px auto !important; /* মাঝখানে নেবে */
-    width: 80% !important;
-    max-width: 300px;
-    font-size: 18px !important; /* লেখা বড় হবে */
-    font-weight: bold !important; /* লেখা বোল্ড হবে */
-    text-align: center;
-}
-
-/* লেবেলগুলো মাঝখানে আনার জন্য */
-.section-label {
-    text-align: center;
-    display: block;
+    font-weight: bold;
+    width: 100%;
     font-size: 16px;
+}
+
+.footer-brand {
+    margin-top: 25px;
+    font-size: 10px;
+    color: #777;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
 }
