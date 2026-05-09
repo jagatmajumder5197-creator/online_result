@@ -4,18 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jagat Online Result System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <img src="Logo_Jagat.png" alt="School Logo" class="school-logo">
-        
         <h1 class="school-name">SHRIPUR KG SCHOOL</h1>
         
         <div class="search-section">
             <input type="text" id="studentId" placeholder="Select Class/Section (Unique I_D)">
             <button class="btn-jagat" onclick="getResult()">VIEW SCORE</button>
+        </div>
+
+        <div id="resultArea" class="result-card" style="display: none;">
+            <div class="card-main">
+                <i class="fas fa-check-circle main-tick"></i> <span id="displayName">Student Name</span>
+                <button class="download-btn"><i class="fas fa-download"></i></button> </div>
+            
+            <div class="verified-badge">
+                <i class="fas fa-certificate"></i>
+                <span>Verified by Shripur Kindergarten School</span>
+            </div>
         </div>
 
         <div class="footer-brand">
