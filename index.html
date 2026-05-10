@@ -3,137 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKS Result Portal - Jagat Infrastructure</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <title>Progress Report Card - Shripur Kindergarten</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <style>
+        /* A4 Setup */
+        @page { size: A4; margin: 0; }
+        body { margin: 0; padding: 0; background-color: #f0f0f0; font-family: 'Arial', sans-serif; }
+
+        .a4-page {
+            width: 210mm;
+            height: 297mm;
+            padding: 8mm;
+            margin: 10mm auto;
+            background: white;
+            box-sizing: border-box;
+            border: 5px double #000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Header curved name logic */
+        .header { text-align: center; position: relative; margin-bottom: 5px; }
+        .logo-left { position: absolute; left: 0; top: 10px; width: 80px; }
+        .cert-no { position: absolute; right: 0; top: 0; font-size: 11px; }
+
+        .school-name-svg { width: 100%; height: 100px; }
+        .eval-title { font-size: 22px; font-weight: bold; margin-top: -10px; }
+        .report-label { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 20px; 
+            font-style: italic; 
+            color: #444;
+            margin-top: 2px;
+        }
+
+        /* Student Name & Info */
+        .student-section { text-align: center; margin: 15px 0; }
+        .student-name { font-size: 38px; font-weight: 700; text-transform: uppercase; margin: 0; }
+        .info-row { font-size: 16px; display: flex; justify-content: center; gap: 40px; margin-top: 5px; }
+
+        /* Assessment Table Logic */
+        .marks-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Roboto Condensed', sans-serif;
+            margin-top: 10px;
+        }
+
+        .marks-table th, .marks-table td {
+            border: 1px solid #000;
+            padding: 6px 2px;
+            text-align: center;
+            white-space: nowrap; /* Forces text into one line */
+        }
+
+        .marks-table th { font-size: 12px; background: #f2f2f2; }
+        
+        /* Large numbers for marks */
+        .marks-table td { font-size: 22px; } 
+
+        /* Subject name slightly smaller to fit width */
+        .subject-col { 
+            text-align: left !important; 
+            padding-left: 10px !important; 
+            font-size: 17px !important; 
+            font-weight: 600;
+        }
+
+        /* Summary Table */
+        .summary-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-family: 'Roboto Condensed', sans-serif; }
+        .summary-table td { border: 1px solid #000; padding: 8px 2px; font-size: 18px; text-align: center; }
+        .summary-label { font-size: 10px; display: block; text-transform: uppercase; color: #555; }
+
+        /* Aadhar Style Verification */
+        .verify-box {
+            border: 2px dashed #28a745;
+            background: #f9fff9;
+            width: 280px;
+            margin: 15px auto;
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .verify-text { font-size: 12px; color: #155724; font-weight: bold; line-height: 1.2; }
+
+        /* Footer & Buttons */
+        .signature-row { display: flex; justify-content: space-between; margin-top: 30px; text-align: center; }
+        .sig-line { width: 170px; border-top: 1px solid #000; padding-top: 5px; font-size: 12px; }
+
+        .footer-nav { 
+            position: absolute; 
+            bottom: 8px; 
+            width: calc(100% - 16mm); 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 12px;
+        }
+        .btn { color: #007bff; cursor: pointer; text-decoration: none; font-weight: bold; }
+
+        @media print { .no-print { display: none; } .a4-page { margin: 0; box-shadow: none; border: 5px double #000; } }
+    </style>
 </head>
 <body>
 
-    <div id="selectionArea" class="portal-container">
-        <h1>SHRIPUR KINDERGARTEN SCHOOL</h1>
-        <h2>System: Jagat Infrastructure JS</h2>
-        <h3>First Summative Evaluation: 2026</h3>
+    <div class="a4-page">
+        <div class="header">
+            <span class="cert-no">Certificate No: PVI02</span>
+            <img src="Logo_Jagat.png" alt="Logo" class="logo-left">
+            
+            <svg class="school-name-svg" viewBox="0 0 500 100">
+                <path id="curvePath" d="M 50,80 A 200,65 0 0,1 450,80" fill="transparent" />
+                <text font-family="Arial" font-size="34" font-weight="bold">
+                    <textPath xlink:href="#curvePath" startOffset="50%" text-anchor="middle">
+                        SHRIPUR KINDERGARTEN SCHOOL
+                    </textPath>
+                </text>
+            </svg>
 
-        <select id="classSelect">
-            <option value="">CLASS_SEC</option>
-        </select>
+            <div class="eval-title">First Summative Evaluation - 2026</div>
+            <div class="report-label">Progress Report Card</div>
+        </div>
 
-        <select id="studentSelect">
-            <option value="">STUDENTS_NAME</option>
-        </select>
-
-        <button id="viewResultBtn">View Result</button>
-    </div>
-
-    <div id="resultWrapper" class="result-wrapper hidden">
-        <div class="marksheet" id="marksheet">
-            <div class="watermark">
-                <img src="Logo_Jagat.png" alt="SKS Watermark">
+        <div class="student-section">
+            <div class="student-name">DISHA ROY</div>
+            <div class="info-row">
+                <span>Father's Name: SUDHIR ROY</span>
+                <span>Class: VI-A</span>
+                <span>Roll No: ---</span>
             </div>
+        </div>
 
-            <div class="top-header">
-                <div class="logo-area">
-                    <img src="Logo_Jagat.png" alt="School Logo">
-                </div>
-                <div class="school-info">
-                    <h1>SHRIPUR KINDERGARTEN SCHOOL</h1>
-                    <h2>First Summative Evaluation - 2026</h2>
-                    <h3>[Progress Report Card]</h3>
-                </div>
-                <div class="certificate-area">
-                    <p>Certificate No: <span id="certificateNo"></span></p>
-                </div>
-            </div>
-
-            <div class="info-section">
-                <div class="student-details">
-                    <table class="bio-table">
-                        <tr><td>Student's Name</td><td>: <span id="resName"></span></td></tr>
-                        <tr><td>Father's Name</td><td>: <span id="resFather"></span></td></tr>
-                        <tr><td>Class_Sec</td><td>: <span id="resClass"></span></td></tr>
-                        <tr><td>Roll Number</td><td>: <span id="resRoll"></span></td></tr>
-                    </table>
-                </div>
-                <div class="grading-scale">
-                    <table class="scale-table">
-                        <thead>
-                            <tr><th>Scale</th><th>Letter Grade</th><th>Performance</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>90 - 100</td><td>AA</td><td>Outstanding</td></tr>
-                            <tr><td>80 - 89</td><td>A+</td><td>Excellent</td></tr>
-                            <tr><td>60 - 79</td><td>A</td><td>Very Good</td></tr>
-                            <tr><td>45 - 59</td><td>B+</td><td>Good</td></tr>
-                            <tr><td>35 - 44</td><td>B</td><td>Satisfactory</td></tr>
-                            <tr><td>25 - 34</td><td>C</td><td>Marginal</td></tr>
-                            <tr><td>Below 25</td><td>D</td><td>Disqualification</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="assessment-title">Assessment of Academic Areas</div>
-            <table class="result-table">
+        <div class="table-container">
+            <table class="marks-table">
                 <thead>
                     <tr>
                         <th rowspan="2">Compulsory Subject</th>
                         <th colspan="3">Full Marks</th>
-                        <th colspan="5">Obtained Marks</th>
+                        <th colspan="3">Marks Obtained</th>
+                        <th rowspan="2">Perc (%)</th>
+                        <th rowspan="2">Grade</th>
                     </tr>
                     <tr>
-                        <th>Written</th><th>Oral</th><th>Total</th>
-                        <th>Written</th><th>Oral</th><th>Total</th><th>Percentage</th><th>Sub. Grade</th>
+                        <th>Writ.</th><th>Oral</th><th>Total</th>
+                        <th>Writ.</th><th>Oral</th><th>Total</th>
                     </tr>
                 </thead>
-                <tbody id="subjectTableBody">
-                    </tbody>
+                <tbody>
+                    <tr><td class="subject-col">BENGALI</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>84%</td><td>A</td></tr>
+                    <tr><td class="subject-col">ENGLISH</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>84%</td><td>A+</td></tr>
+                    <tr><td class="subject-col">MATHEMATICS</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>84%</td><td>A</td></tr>
+                    <tr><td class="subject-col">G.K. & E.V.S.</td><td>-</td><td>-</td><td>50</td><td>35</td><td>5</td><td>40</td><td>80%</td><td>A</td></tr>
+                    <tr><td class="subject-col">WORK EDUCATION</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>A+</td></tr>
+                </tbody>
             </table>
+        </div>
 
-            <div class="final-summary">
-                <table>
-                    <tr>
-                        <th>Total Full Marks</th>
-                        <th>Total Obt. Marks</th>
-                        <th>Grand Percentage</th>
-                        <th>Grade</th>
-                        <th>Rank</th>
-                    </tr>
-                    <tr>
-                        <td id="totalFM"></td>
-                        <td id="totalObt"></td>
-                        <td id="totalPC"></td>
-                        <td id="totalGD"></td>
-                        <td id="totalRank"></td>
-                    </tr>
-                </table>
-            </div>
+        <table class="summary-table">
+            <tr>
+                <td><span class="summary-label">Full Marks</span> 700</td>
+                <td><span class="summary-label">Obt. Marks</span> 466</td>
+                <td><span class="summary-label">Percentage</span> 65.14%</td>
+                <td><span class="summary-label">Grade</span> A</td>
+                <td><span class="summary-label">Result</span> <strong>PASS</strong></td>
+                <td><span class="summary-label">Rank</span> 12th</td>
+            </tr>
+        </table>
 
-            <div class="verified-note">✅ Result Verified - Shripur Kindergarten School</div>
+        <div class="verification-box">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="#28a745"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <div class="verify-text">Verified by Shripur Kindergarten School<br>Principal Office / Verification Dept.</div>
+        </div>
 
-            <div class="signature-area">
-                <div class="sign-box">
-                    <div class="tick">✅</div>
-                    <div class="sign-title">Class Teacher</div>
-                </div>
-                <div class="sign-box">
-                    <div class="tick">✅</div>
-                    <div class="sign-title">Jagat Infrastructure<br>Algorithm & JS</div>
-                </div>
-                <div class="sign-box">
-                    <div class="tick">✅</div>
-                    <div class="sign-title">Principal</div>
-                </div>
-            </div>
+        <div class="signature-row">
+            <div class="sig-line">Class Teacher</div>
+            <div class="sig-line">Jagat Infrastructure Algorithm & JS</div>
+            <div class="sig-line">Principal</div>
+        </div>
 
-            <div class="credit">Design by_Jagat</div>
-
-            <div class="action-buttons no-print">
-                <button onclick="window.print()" class="btn-link">Print</button>
-                <button id="downloadBtn" class="btn-link">Download</button>
-            </div>
+        <div class="footer-nav no-print">
+            <a class="btn" onclick="window.print()">Print</a>
+            <span style="color: #666;">Design by_Jagat</span>
+            <a class="btn" onclick="alert('Download Logic to be added in script.js')">Download</a>
         </div>
     </div>
 
-    <script src="script.js"></script>
 </body>
 </html>
