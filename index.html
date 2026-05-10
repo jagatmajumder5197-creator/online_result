@@ -1,50 +1,139 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jagat Online Result System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>SKS Result Portal - Jagat Infrastructure</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <img src="Logo_Jagat.png" alt="School Logo" class="school-logo">
-        <h1 class="school-name">SHRIPUR KG SCHOOL</h1>
-        
-        <div class="search-section">
-            <select id="classSec">
-                <option value="">Select Class/Section</option>
-            </select>
-            <select id="studentName">
-                <option value="">Select Student Name</option>
-            </select>
-            <button id="viewBtn" class="btn-jagat">VIEW SCORE</button>
-        </div>
 
-        <div id="resultCard" class="result-card hidden">
-            <div class="card-main">
-                <i class="fas fa-check-circle main-tick"></i> <span id="outName">Student Name</span>
-                <button class="download-btn" onclick="window.print()"><i class="fas fa-download"></i></button> </div>
+    <div id="selectionArea" class="portal-container">
+        <h1>SHRIPUR KINDERGARTEN SCHOOL</h1>
+        <h2>System: Jagat Infrastructure JS</h2>
+        <h3>First Summative Evaluation: 2026</h3>
 
-            <div class="result-summary">
-                <p>Roll: <span id="outRoll" class="bold-digit"></span></p>
-                <p>Total: <span id="outTotalText" class="bold-digit"></span></p>
+        <select id="classSelect">
+            <option value="">CLASS_SEC</option>
+        </select>
+
+        <select id="studentSelect">
+            <option value="">STUDENTS_NAME</option>
+        </select>
+
+        <button id="viewResultBtn">View Result</button>
+    </div>
+
+    <div id="resultWrapper" class="result-wrapper hidden">
+        <div class="marksheet" id="marksheet">
+            <div class="watermark">
+                <img src="Logo_Jagat.png" alt="SKS Watermark">
             </div>
-            
-            <div class="verified-badge">
-                <i class="fas fa-certificate"></i>
-                <span>Verified by Shripur Kindergarten School</span>
-            </div>
-        </div>
 
-        <div class="footer-brand">
-            Digitally Powered by<br>
-            <strong>Jagat Infrastructure with Algorithm & JS</strong>
+            <div class="top-header">
+                <div class="logo-area">
+                    <img src="Logo_Jagat.png" alt="School Logo">
+                </div>
+                <div class="school-info">
+                    <h1>SHRIPUR KINDERGARTEN SCHOOL</h1>
+                    <h2>First Summative Evaluation - 2026</h2>
+                    <h3>[Progress Report Card]</h3>
+                </div>
+                <div class="certificate-area">
+                    <p>Certificate No: <span id="certificateNo"></span></p>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="student-details">
+                    <table class="bio-table">
+                        <tr><td>Student's Name</td><td>: <span id="resName"></span></td></tr>
+                        <tr><td>Father's Name</td><td>: <span id="resFather"></span></td></tr>
+                        <tr><td>Class_Sec</td><td>: <span id="resClass"></span></td></tr>
+                        <tr><td>Roll Number</td><td>: <span id="resRoll"></span></td></tr>
+                    </table>
+                </div>
+                <div class="grading-scale">
+                    <table class="scale-table">
+                        <thead>
+                            <tr><th>Scale</th><th>Letter Grade</th><th>Performance</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>90 - 100</td><td>AA</td><td>Outstanding</td></tr>
+                            <tr><td>80 - 89</td><td>A+</td><td>Excellent</td></tr>
+                            <tr><td>60 - 79</td><td>A</td><td>Very Good</td></tr>
+                            <tr><td>45 - 59</td><td>B+</td><td>Good</td></tr>
+                            <tr><td>35 - 44</td><td>B</td><td>Satisfactory</td></tr>
+                            <tr><td>25 - 34</td><td>C</td><td>Marginal</td></tr>
+                            <tr><td>Below 25</td><td>D</td><td>Disqualification</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="assessment-title">Assessment of Academic Areas</div>
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Compulsory Subject</th>
+                        <th colspan="3">Full Marks</th>
+                        <th colspan="5">Obtained Marks</th>
+                    </tr>
+                    <tr>
+                        <th>Written</th><th>Oral</th><th>Total</th>
+                        <th>Written</th><th>Oral</th><th>Total</th><th>Percentage</th><th>Sub. Grade</th>
+                    </tr>
+                </thead>
+                <tbody id="subjectTableBody">
+                    </tbody>
+            </table>
+
+            <div class="final-summary">
+                <table>
+                    <tr>
+                        <th>Total Full Marks</th>
+                        <th>Total Obt. Marks</th>
+                        <th>Grand Percentage</th>
+                        <th>Grade</th>
+                        <th>Rank</th>
+                    </tr>
+                    <tr>
+                        <td id="totalFM"></td>
+                        <td id="totalObt"></td>
+                        <td id="totalPC"></td>
+                        <td id="totalGD"></td>
+                        <td id="totalRank"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="verified-note">✅ Result Verified - Shripur Kindergarten School</div>
+
+            <div class="signature-area">
+                <div class="sign-box">
+                    <div class="tick">✅</div>
+                    <div class="sign-title">Class Teacher</div>
+                </div>
+                <div class="sign-box">
+                    <div class="tick">✅</div>
+                    <div class="sign-title">Jagat Infrastructure<br>Algorithm & JS</div>
+                </div>
+                <div class="sign-box">
+                    <div class="tick">✅</div>
+                    <div class="sign-title">Principal</div>
+                </div>
+            </div>
+
+            <div class="credit">Design by_Jagat</div>
+
+            <div class="action-buttons no-print">
+                <button onclick="window.print()" class="btn-link">Print</button>
+                <button id="downloadBtn" class="btn-link">Download</button>
+            </div>
         </div>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
