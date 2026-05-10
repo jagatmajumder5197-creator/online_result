@@ -9,26 +9,38 @@
         @page { size: A4; margin: 0; }
         body { margin: 0; padding: 0; background-color: #f0f0f0; font-family: 'Arial', sans-serif; }
         .a4-page { width: 210mm; height: 297mm; padding: 12mm; margin: 10mm auto; background: white; border: 5px double #000; box-sizing: border-box; position: relative; }
+        
+        /* Header Logic */
         .header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 15px; position: relative; }
         .logo-left { position: absolute; left: 0; top: 0; width: 85px; }
         .cert-no { position: absolute; right: 0; top: 0; font-size: 11px; }
         .school-name { font-size: 40px; font-weight: 800; margin: 10px 0 0; text-transform: uppercase; }
         .eval-title { font-size: 22px; font-weight: bold; margin-top: 5px; }
         .report-label { font-size: 24px; font-style: italic; color: #444; }
+
+        /* Student Info */
         .student-name { font-size: 42px; font-weight: 700; text-align: center; text-transform: uppercase; margin: 15px 0 5px; }
         .info-row { font-size: 18px; display: flex; justify-content: center; gap: 40px; margin-bottom: 20px; }
+
+        /* Table Architecture: Rank Column Fixed */
         .marks-table { width: 100%; border-collapse: collapse; font-family: 'Roboto Condensed', sans-serif; }
         .marks-table th, .marks-table td { border: 1px solid #000; padding: 8px 5px; text-align: center; }
-        .marks-table th { font-size: 13px; background: #f2f2f2; }
+        .marks-table th { font-size: 13px; background: #f2f2f2; text-transform: uppercase; }
         .marks-table td { font-size: 26px; font-weight: bold; }
         .subject-col { text-align: left !important; padding-left: 15px !important; font-size: 20px !important; font-weight: bold; }
-        .summary-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'Roboto Condensed', sans-serif; }
+
+        /* Summary Logic */
+        .summary-table { width: 100%; border-collapse: collapse; margin-top: 25px; font-family: 'Roboto Condensed', sans-serif; }
         .summary-table td { border: 1px solid #000; padding: 12px 5px; font-size: 22px; text-align: center; font-weight: bold; }
         .summary-label { font-size: 11px; display: block; text-transform: uppercase; color: #555; }
-        .signature-row { display: flex; justify-content: space-between; margin-top: 50px; text-align: center; }
+
+        /* Signature Section */
+        .signature-row { display: flex; justify-content: space-between; margin-top: 60px; text-align: center; }
         .sig-line { width: 180px; border-top: 1.5px solid #000; padding-top: 5px; font-size: 14px; font-weight: bold; }
+
         .footer-nav { position: absolute; bottom: 15px; width: calc(100% - 24mm); display: flex; justify-content: space-between; }
         .btn { font-size: 13px; color: #007bff; cursor: pointer; text-decoration: none; font-weight: bold; }
+
         @media print { .no-print { display: none; } .a4-page { margin: 0; border: 5px double #000; } }
     </style>
 </head>
