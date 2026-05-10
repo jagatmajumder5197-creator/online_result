@@ -4,83 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Progress Report Card - Shripur Kindergarten</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @page { size: A4; margin: 0; }
         body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: 'Arial', sans-serif; }
-
-        .a4-page {
-            width: 210mm;
-            height: 297mm;
-            padding: 10mm;
-            margin: 10mm auto;
-            background: white;
-            box-sizing: border-box;
-            border: 5px double #000;
-            position: relative;
-        }
-
-        /* হেডার: সোজা এবং বড় স্কুলের নাম */
+        .a4-page { width: 210mm; height: 297mm; padding: 12mm; margin: 10mm auto; background: white; border: 5px double #000; box-sizing: border-box; position: relative; }
+        
+        /* Header */
         .header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 15px; position: relative; }
         .logo-left { position: absolute; left: 0; top: 0; width: 90px; }
-        .cert-no { position: absolute; right: 0; top: 0; font-size: 11px; }
-
-        .school-name { 
-            font-size: 42px; 
-            font-weight: 800; 
-            color: #000; 
-            margin: 0; 
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+        .school-name { font-size: 42px; font-weight: 800; margin: 0; text-transform: uppercase; }
         .eval-title { font-size: 22px; font-weight: bold; margin-top: 5px; }
-        .report-label { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 24px; 
-            font-style: italic; 
-            color: #444;
-        }
+        .report-label { font-size: 24px; font-style: italic; color: #444; }
 
-        /* স্টুডেন্ট ইনফো */
+        /* Student */
         .student-section { text-align: center; margin: 20px 0; }
-        .student-name { font-size: 44px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; }
-        .info-row { font-size: 18px; display: flex; justify-content: center; gap: 40px; }
+        .student-name { font-size: 44px; font-weight: 700; text-transform: uppercase; }
+        .info-row { font-size: 18px; display: flex; justify-content: center; gap: 40px; margin-top: 10px; }
 
-        /* টেবিল লজিক: বড় সংখ্যা এবং সব এক লাইনে */
-        .marks-table { width: 100%; border-collapse: collapse; font-family: 'Roboto Condensed', sans-serif; margin-top: 10px; }
-        .marks-table th, .marks-table td { border: 1px solid #000; padding: 10px 4px; text-align: center; white-space: nowrap; }
-        .marks-table th { font-size: 14px; background: #f2f2f2; text-transform: uppercase; }
-        .marks-table td { font-size: 26px; } /* সংখ্যাগুলো অনেক বড় করা হয়েছে */
+        /* Table Logic */
+        .marks-table { width: 100%; border-collapse: collapse; font-family: 'Roboto Condensed', sans-serif; }
+        .marks-table th, .marks-table td { border: 1px solid #000; padding: 10px 5px; text-align: center; white-space: nowrap; }
+        .marks-table th { font-size: 14px; background: #f2f2f2; }
+        .marks-table td { font-size: 28px; } /* সংখ্যাগুলো অনেক বড় */
+        .subject-col { text-align: left !important; padding-left: 15px !important; font-size: 22px !important; font-weight: bold; }
 
-        .subject-col { text-align: left !important; padding-left: 15px !important; font-size: 20px !important; font-weight: 600; }
-
-        /* রেজাল্ট সামারি */
+        /* Summary */
         .summary-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'Roboto Condensed', sans-serif; }
-        .summary-table td { border: 1px solid #000; padding: 12px 5px; font-size: 22px; text-align: center; }
-        .summary-label { font-size: 12px; display: block; text-transform: uppercase; color: #555; font-weight: bold; }
+        .summary-table td { border: 1px solid #000; padding: 15px 5px; font-size: 24px; text-align: center; }
+        .summary-label { font-size: 12px; display: block; text-transform: uppercase; font-weight: bold; }
 
-        /* ভেরিফিকেশন বক্স */
-        .verify-box { border: 2px dashed #28a745; background: #f9fff9; width: 320px; margin: 20px auto; padding: 12px; border-radius: 8px; display: flex; align-items: center; gap: 12px; }
-        .verify-text { font-size: 14px; color: #155724; font-weight: bold; text-align: left; }
-
-        /* স্বাক্ষর */
-        .signature-row { display: flex; justify-content: space-between; margin-top: 45px; text-align: center; }
+        /* Verification & Sign */
+        .signature-row { display: flex; justify-content: space-between; margin-top: 50px; text-align: center; }
         .sig-line { width: 190px; border-top: 1px solid #000; padding-top: 5px; font-size: 14px; font-weight: bold; }
-
-        /* বাটন */
-        .footer-nav { position: absolute; bottom: 10px; width: calc(100% - 20mm); display: flex; justify-content: space-between; }
-        .btn { font-size: 13px; color: #007bff; cursor: pointer; text-decoration: none; font-weight: bold; }
-
-        @media print { .no-print { display: none; } .a4-page { margin: 0; box-shadow: none; border: 5px double #000; } }
+        .footer-nav { position: absolute; bottom: 15px; width: calc(100% - 24mm); display: flex; justify-content: space-between; }
+        .btn { font-size: 14px; color: #007bff; cursor: pointer; font-weight: bold; text-decoration: none; }
+        
+        @media print { .no-print { display: none; } .a4-page { margin: 0; border: 5px double #000; } }
     </style>
 </head>
 <body>
-
     <div class="a4-page">
         <div class="header">
-            <span class="cert-no">Certificate No: PVI02</span>
             <img src="https://raw.githubusercontent.com/jagatmajumder5197-creator/online_result/main/Logo_Jagat.png" alt="Logo" class="logo-left">
-            
             <h1 class="school-name">SHRIPUR KINDERGARTEN SCHOOL</h1>
             <div class="eval-title">First Summative Evaluation - 2026</div>
             <div class="report-label">Progress Report Card</div>
@@ -101,7 +67,6 @@
                     <th rowspan="2">Compulsory Subject</th>
                     <th colspan="3">Full Marks</th>
                     <th colspan="3">Marks Obtained</th>
-                    <th rowspan="2">Perc (%)</th>
                     <th rowspan="2">Grade</th>
                 </tr>
                 <tr>
@@ -110,11 +75,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr><td class="subject-col">BENGALI</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>84%</td><td>A</td></tr>
-                <tr><td class="subject-col">ENGLISH</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>84%</td><td>A+</td></tr>
-                <tr><td class="subject-col">MATHEMATICS</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>84%</td><td>A</td></tr>
-                <tr><td class="subject-col">G.K. & E.V.S.</td><td>-</td><td>-</td><td>50</td><td>35</td><td>5</td><td>40</td><td>80%</td><td>A</td></tr>
-                <tr><td class="subject-col">WORK EDUCATION</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>A+</td></tr>
+                <tr><td class="subject-col">BENGALI</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>A</td></tr>
+                <tr><td class="subject-col">ENGLISH</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>A+</td></tr>
+                <tr><td class="subject-col">MATHEMATICS</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>A</td></tr>
+                <tr><td class="subject-col">G.K. & E.V.S.</td><td>-</td><td>-</td><td>50</td><td>35</td><td>5</td><td>40</td><td>A</td></tr>
             </tbody>
         </table>
 
@@ -123,16 +87,9 @@
                 <td><span class="summary-label">Full Marks</span> 700</td>
                 <td><span class="summary-label">Obt. Marks</span> 466</td>
                 <td><span class="summary-label">Percentage</span> 65.14%</td>
-                <td><span class="summary-label">Grade</span> A</td>
                 <td><span class="summary-label">Result</span> <strong>PASS</strong></td>
-                <td><span class="summary-label">Rank</span> 12th</td>
             </tr>
         </table>
-
-        <div class="verify-box">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="#28a745"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            <div class="verify-text">Verified by Shripur Kindergarten School<br>Designation: Principal Office / Verification Dept.</div>
-        </div>
 
         <div class="signature-row">
             <div class="sig-line">Class Teacher</div>
@@ -146,6 +103,5 @@
             <a class="btn" onclick="window.print()">Download PDF</a>
         </div>
     </div>
-
 </body>
 </html>
