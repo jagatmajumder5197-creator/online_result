@@ -1,114 +1,426 @@
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOnxQqelRC93Xmx61AHsmX3XsB6u3qKK_LtY0miKigHQGwH2fz75Ho1hxy8YoYYsYWQQ/exec";
+const WEB_APP_URL =
+"https://script.google.com/macros/s/AKfycbyOnxQqelRC93Xmx61AHsmX3XsB6u3qKK_LtY0miKigHQGwH2fz75Ho1hxy8YoYYsYWQQ/exec";
 
-let studentData = [];
+let allStudents = [];
 
-// Configuration for Subject Mapping based on your provided columns
-const subjectConfig = [
-    { name: "Bengali", fm: "FMB", wt: "WTB", ol: "OLB", tt: "TTB", pc: "PCB", gd: "GDB" },
-    { name: "English", fm: "FME", wt: "WTE", ol: "OLE", tt: "TTE", pc: "PCE", gd: "GDE" },
-    { name: "Math", fm: "FMM", wt: "WTM", ol: "OLM", tt: "TTM", pc: "PCM", gd: "GDM" },
-    { name: "Hindi", fm: "FMHN", wt: "WTHN", ol: "OLHN", tt: "TTHN", pc: "PCHN", gd: "GDHN" },
-    { name: "Computer", fm: "FMCM", wt: "WTCM", ol: "OLCM", tt: "TTCM", pc: "PCCM", gd: "GDCM" },
-    { name: "Rhymes Bengali", fm: "FMRYMB", wt: "WTRYMB", ol: "OLRYMB", tt: "TTRYMB", pc: "PCRYMB", gd: "GDRYMB" },
-    { name: "Rhymes English", fm: "FMRYME", wt: "WTRYME", ol: "OLRYME", tt: "TTRYME", pc: "PCRYME", gd: "GDRYME" },
-    { name: "GK", fm: "FMGK", wt: "WTGK", ol: "OLGK", tt: "TTGK", pc: "PCGK", gd: "GDGK" },
-    { name: "EVS", fm: "FMEV", wt: "WTEV", ol: "OLEV", tt: "TTEV", pc: "PCEV", gd: "GDEV" },
-    { name: "History", fm: "FMHS", wt: "WTHS", ol: "OLHS", tt: "TTHS", pc: "PCHS", gd: "GDHS" },
-    { name: "Geography", fm: "FMG", wt: "WTG", ol: "OLG", tt: "TTG", pc: "PCG", gd: "GDG" },
-    { name: "Life Science", fm: "FMLSC", wt: "WRLSC", ol: "OLLSC", tt: "TTLSC", pc: "PCLSC", gd: "GDLSC" },
-    { name: "Physical Science", fm: "FMPSC", wt: "WTPSC", ol: "OLPSC", tt: "TTPSC", pc: "PCPSC", gd: "GDPSC" }
+
+/* =========================
+   LOAD DATA
+========================= */
+
+window.onload = async () => {
+
+  try{
+
+    const response = await fetch(WEB_APP_URL);
+
+    const data = await response.json();
+
+    allStudents = data;
+
+    loadClasses();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("Failed to load data");
+
+  }
+
+};
+
+
+/* =========================
+   LOAD CLASSES
+========================= */
+
+function loadClasses(){
+
+  const classSelect =
+  document.getElementById("classSelect");
+
+  const classes =
+  [...new Set(allStudents.map(s => s.CLASS))];
+
+  classes.forEach(cls => {
+
+    const option =
+    document.createElement("option");
+
+    option.value = cls;
+
+    option.textContent = cls;
+
+    classSelect.appendChild(option);
+
+  });
+
+}
+
+
+/* =========================
+   LOAD STUDENTS
+========================= */
+
+document
+.getElementById("classSelect")
+.addEventListener("change", function(){
+
+  const selectedClass = this.value;
+
+  const studentSelect =
+  document.getElementById("studentSelect");
+
+  studentSelect.innerHTML =
+  `<option value="">STUDENTS_NAME</option>`;
+
+  const filtered =
+  allStudents.filter(
+    s => s.CLASS === selectedClass
+  );
+
+  filtered.forEach(student => {
+
+    const option =
+    document.createElement("option");
+
+    option.value =
+    student.I_D;
+
+    option.textContent =
+    student.STUDENTS_NAME;
+
+    studentSelect.appendChild(option);
+
+  });
+
+});
+
+
+/* =========================
+   VIEW RESULT
+========================= */
+
+document
+.getElementById("viewResultBtn")
+.addEventListener("click", function(){
+
+  const studentId =
+  document.getElementById("studentSelect").value;
+
+  if(!studentId){
+
+    alert("Please select student");
+
+    return;
+  }
+
+  const student =
+  allStudents.find(
+    s => s.I_D == studentId
+  );
+
+  generateResult(student);
+
+});
+
+
+/* =========================
+   SUBJECT MAPPING
+========================= */
+
+const subjects = [
+
+  {
+    name:"Bengali",
+    fm:"FMB",
+    written:"WTB",
+    oral:"OLB",
+    total:"TTB",
+    percentage:"PCB",
+    grade:"GDB"
+  },
+
+  {
+    name:"English",
+    fm:"FME",
+    written:"WTE",
+    oral:"OLE",
+    total:"TTE",
+    percentage:"PCE",
+    grade:"GDE"
+  },
+
+  {
+    name:"Math",
+    fm:"FMM",
+    written:"WTM",
+    oral:"OLM",
+    total:"TTM",
+    percentage:"PCM",
+    grade:"GDM"
+  },
+
+  {
+    name:"Hindi",
+    fm:"FMHN",
+    written:"WTHN",
+    oral:"OLHN",
+    total:"TTHN",
+    percentage:"PCHN",
+    grade:"GDHN"
+  },
+
+  {
+    name:"Computer",
+    fm:"FMCM",
+    written:"WTCM",
+    oral:"OLCM",
+    total:"TTCM",
+    percentage:"PCCM",
+    grade:"GDCM"
+  },
+
+  {
+    name:"Rhymes Bengali",
+    fm:"FMRYMB",
+    written:"WTRYMB",
+    oral:"OLRYMB",
+    total:"TTRYMB",
+    percentage:"PCRYMB",
+    grade:"GDRYMB"
+  },
+
+  {
+    name:"Rhymes English",
+    fm:"FMRYME",
+    written:"WTRYME",
+    oral:"OLRYME",
+    total:"TTRYME",
+    percentage:"PCRYME",
+    grade:"GDRYME"
+  },
+
+  {
+    name:"GK",
+    fm:"FMGK",
+    written:"WTGK",
+    oral:"OLGK",
+    total:"TTGK",
+    percentage:"PCGK",
+    grade:"GDGK"
+  },
+
+  {
+    name:"EVS",
+    fm:"FMEV",
+    written:"WTEV",
+    oral:"OLEV",
+    total:"TTEV",
+    percentage:"PCEV",
+    grade:"GDEV"
+  },
+
+  {
+    name:"History",
+    fm:"FMHS",
+    written:"WTHS",
+    oral:"OLHS",
+    total:"TTHS",
+    percentage:"PCHS",
+    grade:"GDHS"
+  },
+
+  {
+    name:"Geography",
+    fm:"FMG",
+    written:"WTG",
+    oral:"OLG",
+    total:"TTG",
+    percentage:"PCG",
+    grade:"GDG"
+  },
+
+  {
+    name:"Life Science",
+    fm:"FMLSC",
+    written:"WRLSC",
+    oral:"OLLSC",
+    total:"TTLSC",
+    percentage:"PCLSC",
+    grade:"GDLSC"
+  },
+
+  {
+    name:"Physical Science",
+    fm:"FMPSC",
+    written:"WTPSC",
+    oral:"OLPSC",
+    total:"TTPSC",
+    percentage:"PCPSC",
+    grade:"GDPSC"
+  }
+
 ];
 
-// Load Data on Start
-window.onload = async () => {
-    try {
-        const res = await fetch(WEB_APP_URL);
-        studentData = await res.json();
-        populateClassDropdown();
-    } catch (e) {
-        alert("System Error: Could not connect to Master Sheet.");
+
+/* =========================
+   GENERATE RESULT
+========================= */
+
+function generateResult(student){
+
+  document
+  .getElementById("resultWrapper")
+  .classList.remove("hidden");
+
+
+  document.getElementById("certificateNo")
+  .textContent = student.I_D;
+
+  document.getElementById("studentName")
+  .textContent = student.STUDENTS_NAME;
+
+  document.getElementById("fatherName")
+  .textContent = student.FATHERS_NAME;
+
+  document.getElementById("studentClass")
+  .textContent = student.CLASS;
+
+  document.getElementById("rollNumber")
+  .textContent = student.ROLL;
+
+
+  const tbody =
+  document.getElementById("subjectTableBody");
+
+  tbody.innerHTML = "";
+
+
+  subjects.forEach(sub => {
+
+    const fm =
+    Number(student[sub.fm]);
+
+    /* =========================
+       FM FILTERING LOGIC
+    ========================== */
+
+    if(fm > 0){
+
+      const written =
+      Number(student[sub.written] || 0);
+
+      const oral =
+      Number(student[sub.oral] || 0);
+
+      const total =
+      Number(student[sub.total] || 0);
+
+      const percentage =
+      Number(student[sub.percentage] || 0);
+
+      const grade =
+      student[sub.grade] || "-";
+
+      const row = `
+
+        <tr>
+
+          <td>${sub.name}</td>
+
+          <td>${written}</td>
+          <td>${oral}</td>
+          <td>${fm}</td>
+
+          <td>${written}</td>
+          <td>${oral}</td>
+          <td>${total}</td>
+
+          <td>
+            ${percentage.toFixed(2)}%
+          </td>
+
+          <td>${grade}</td>
+
+        </tr>
+
+      `;
+
+      tbody.innerHTML += row;
+
     }
-};
 
-function populateClassDropdown() {
-    const classList = [...new Set(studentData.map(item => item.CLASS))];
-    const dropdown = document.getElementById("classSelect");
-    classList.forEach(cls => {
-        let opt = document.createElement("option");
-        opt.value = opt.textContent = cls;
-        dropdown.appendChild(opt);
-    });
+  });
+
+
+  /* =========================
+     FINAL SUMMARY
+  ========================== */
+
+  document.getElementById("grandFullMarks")
+  .textContent = student.FM;
+
+  document.getElementById("grandTotal")
+  .textContent = student.GTT;
+
+  document.getElementById("grandPercentage")
+  .textContent =
+  Number(student.PCGTT).toFixed(2) + "%";
+
+  document.getElementById("grandGrade")
+  .textContent = student.GDGTT;
+
+  document.getElementById("grandRank")
+  .textContent = student.ORD;
+
 }
 
-document.getElementById("classSelect").onchange = function() {
-    const studentsInClass = studentData.filter(s => s.CLASS === this.value);
-    const stuDropdown = document.getElementById("studentSelect");
-    stuDropdown.innerHTML = '<option value="">STUDENTS_NAME</option>';
-    studentsInClass.forEach(s => {
-        let opt = document.createElement("option");
-        opt.value = s.I_D;
-        opt.textContent = s.STUDENTS_NAME;
-        stuDropdown.appendChild(opt);
-    });
-};
 
-document.getElementById("viewResultBtn").onclick = function() {
-    const id = document.getElementById("studentSelect").value;
-    if (!id) return alert("Select Student First");
-    const student = studentData.find(s => s.I_D == id);
-    renderMarksheet(student);
-};
+/* =========================
+   PRINT
+========================= */
 
-function renderMarksheet(s) {
-    document.getElementById("selectionArea").classList.add("hidden");
-    document.getElementById("resultWrapper").classList.remove("hidden");
+function printResult(){
 
-    // Bio Info
-    document.getElementById("certificateNo").textContent = s.I_D;
-    document.getElementById("resName").textContent = s.STUDENTS_NAME;
-    document.getElementById("resFather").textContent = s.FATHERS_NAME;
-    document.getElementById("resClass").textContent = s.CLASS;
-    document.getElementById("resRoll").textContent = s.ROLL;
+  window.print();
 
-    // Table Generation with Filter Logic
-    const tbody = document.getElementById("subjectTableBody");
-    tbody.innerHTML = "";
-
-    subjectConfig.forEach(sub => {
-        const fullMarks = Number(s[sub.fm] || 0);
-
-        // Logic Trigger: Only show if Full Marks > 0
-        if (fullMarks > 0) {
-            let row = `<tr>
-                <td style="text-align:left; padding-left:15px;">${sub.name}</td>
-                <td>-</td><td>-</td><td>${fullMarks}</td>
-                <td>${s[sub.wt] ?? 0}</td>
-                <td>${s[sub.ol] ?? 0}</td>
-                <td>${s[sub.total] ?? 0}</td>
-                <td>${Number(s[sub.pc] || 0).toFixed(2)}%</td>
-                <td>${s[sub.grade] || "D"}</td>
-            </tr>`;
-            tbody.innerHTML += row;
-        }
-    });
-
-    // Grand Summary
-    document.getElementById("totalFM").textContent = s.FM;
-    document.getElementById("totalObt").textContent = s.GTT;
-    document.getElementById("totalPC").textContent = Number(s.PCGTT || 0).toFixed(2) + "%";
-    document.getElementById("totalGD").textContent = s.GDGTT;
-    document.getElementById("totalRank").textContent = s.ORD;
 }
 
-// PDF Download
-document.getElementById("downloadBtn").onclick = function() {
-    const element = document.getElementById("marksheet");
-    const opt = {
-        margin: 0,
-        filename: `Result_${document.getElementById("resName").textContent}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-    html2pdf().set(opt).from(element).save();
-};
+
+/* =========================
+   DOWNLOAD PDF
+========================= */
+
+function downloadPDF(){
+
+  const element =
+  document.getElementById("marksheet");
+
+  const options = {
+
+    margin:0,
+
+    filename:"Result_Marksheet.pdf",
+
+    image:{
+      type:"jpeg",
+      quality:1
+    },
+
+    html2canvas:{
+      scale:2
+    },
+
+    jsPDF:{
+      unit:"mm",
+      format:"a4",
+      orientation:"portrait"
+    }
+
+  };
+
+  html2pdf().set(options).from(element).save();
+
+}
