@@ -1,105 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Progress Report Card - Shripur Kindergarten</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        @page { size: A4; margin: 0; }
-        body { margin: 0; padding: 0; background-color: #f0f0f0; font-family: 'Arial', sans-serif; }
-        .a4-page { width: 210mm; height: 297mm; padding: 12mm; margin: 10mm auto; background: white; border: 5px double #000; box-sizing: border-box; position: relative; }
-        
-        .header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 15px; position: relative; }
-        .logo-left { position: absolute; left: 0; top: 0; width: 85px; }
-        .cert-no { position: absolute; right: 0; top: 0; font-size: 11px; }
-        .school-name { font-size: 40px; font-weight: 800; margin: 10px 0 0; text-transform: uppercase; }
-        .eval-title { font-size: 22px; font-weight: bold; margin-top: 5px; }
-        .report-label { font-size: 24px; font-style: italic; color: #444; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shripur Kindergarten School Result Portal</title>
 
-        .student-name { font-size: 42px; font-weight: 700; text-align: center; text-transform: uppercase; margin: 15px 0 5px; }
-        .info-row { font-size: 18px; display: flex; justify-content: center; gap: 40px; margin-bottom: 20px; }
+  <link rel="stylesheet" href="style.css">
 
-        .marks-table { width: 100%; border-collapse: collapse; font-family: 'Roboto Condensed', sans-serif; }
-        .marks-table th, .marks-table td { border: 1px solid #000; padding: 8px 5px; text-align: center; }
-        .marks-table th { font-size: 12px; background: #f2f2f2; text-transform: uppercase; }
-        .marks-table td { font-size: 26px; font-weight: bold; }
-        .subject-col { text-align: left !important; padding-left: 15px !important; font-size: 20px !important; font-weight: bold; }
-
-        .summary-table { width: 100%; border-collapse: collapse; margin-top: 25px; font-family: 'Roboto Condensed', sans-serif; }
-        .summary-table td { border: 1px solid #000; padding: 12px 5px; font-size: 22px; text-align: center; font-weight: bold; }
-        .summary-label { font-size: 11px; display: block; text-transform: uppercase; color: #555; }
-
-        .signature-row { display: flex; justify-content: space-between; margin-top: 60px; text-align: center; }
-        .sig-line { width: 180px; border-top: 1.5px solid #000; padding-top: 5px; font-size: 14px; font-weight: bold; }
-
-        .footer-nav { position: absolute; bottom: 15px; width: calc(100% - 24mm); display: flex; justify-content: space-between; }
-        .btn { font-size: 13px; color: #007bff; cursor: pointer; text-decoration: none; font-weight: bold; }
-
-        @media print { .no-print { display: none; } .a4-page { margin: 0; border: 5px double #000; } }
-    </style>
+  <!-- html2pdf -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-    <div class="a4-page">
-        <div class="header">
-            <span class="cert-no">Certificate No: PVI02</span>
-            <img src="https://raw.githubusercontent.com/jagatmajumder5197-creator/online_result/main/Logo_Jagat.png" alt="Logo" class="logo-left">
-            <h1 class="school-name">SHRIPUR KINDERGARTEN SCHOOL</h1>
-            <div class="eval-title">First Summative Evaluation - 2026</div>
-            <div class="report-label">Progress Report Card</div>
-        </div>
 
-        <div class="student-name">DISHA ROY</div>
-        <div class="info-row">
-            <span><strong>Father:</strong> SUDHIR ROY</span>
-            <span><strong>Class:</strong> VI-A</span>
-            <span><strong>Roll:</strong> ---</span>
-        </div>
+  <!-- =========================
+       SELECTION PORTAL
+  ========================== -->
 
-        <table class="marks-table">
-            <thead>
-                <tr>
-                    <th rowspan="2">Compulsory Subject</th>
-                    <th colspan="3">Full Marks</th>
-                    <th colspan="3">Marks Obtained</th>
-                    <th rowspan="2">Perc (%)</th>
-                    <th rowspan="2">Grade</th>
-                    <th rowspan="2">Rank</th>
-                </tr>
-                <tr>
-                    <th>Writ.</th><th>Oral</th><th>Total</th>
-                    <th>Writ.</th><th>Oral</th><th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td class="subject-col">BENGALI</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>84%</td><td>A</td><td>12th</td></tr>
-                <tr><td class="subject-col">ENGLISH</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>84%</td><td>A+</td><td>5th</td></tr>
-                <tr><td class="subject-col">MATHEMATICS</td><td>90</td><td>10</td><td>100</td><td>74</td><td>10</td><td>84</td><td>84%</td><td>A</td><td>8th</td></tr>
-                <tr><td class="subject-col">G.K. & E.V.S.</td><td>-</td><td>-</td><td>50</td><td>35</td><td>5</td><td>40</td><td>80%</td><td>A</td><td>15th</td></tr>
-                <tr><td class="subject-col">WORK EDUCATION</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>A+</td><td>--</td></tr>
-            </tbody>
-        </table>
+  <div class="portal-container" id="selectionArea">
 
-        <table class="summary-table">
-            <tr>
-                <td><span class="summary-label">Full Marks</span> 700</td>
-                <td><span class="summary-label">Obt. Marks</span> 466</td>
-                <td><span class="summary-label">Percentage</span> 65.14%</td>
-                <td><span class="summary-label">Result</span> PASS</td>
-            </tr>
-        </table>
+    <h1>SHRIPUR KINDERGARTEN SCHOOL</h1>
 
-        <div class="signature-row">
-            <div class="sig-line">Class Teacher</div>
-            <div class="sig-line">Jagat Infrastructure</div>
-            <div class="sig-line">Principal</div>
-        </div>
+    <h2>System: Jagat Infrastructure JS</h2>
 
-        <div class="footer-nav no-print">
-            <a class="btn" onclick="window.print()">Print Result</a>
-            <span style="color: #999;">Design by_Jagat Infrastructure</span>
-            <a class="btn" onclick="window.print()">Download PDF</a>
-        </div>
+    <h3>First Summative Evaluation - 2026</h3>
+
+    <select id="classSelect">
+      <option value="">CLASS_SEC</option>
+    </select>
+
+    <select id="studentSelect">
+      <option value="">STUDENTS_NAME</option>
+    </select>
+
+    <button id="viewResultBtn">
+      View Result
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       RESULT CARD
+  ========================== -->
+
+  <div class="result-wrapper hidden" id="resultWrapper">
+
+    <div class="watermark">
+      <img src="Logo_Jagat.png" alt="logo">
     </div>
+
+    <div class="marksheet" id="marksheet">
+
+      <!-- HEADER -->
+
+      <div class="top-header">
+
+        <div class="logo-area">
+          <img src="Logo_Jagat.png" alt="logo">
+        </div>
+
+        <div class="school-info">
+
+          <h1>SHRIPUR KINDERGARTEN SCHOOL</h1>
+
+          <h2>First Summative Evaluation - 2026</h2>
+
+          <h3>[Progress Report Card]</h3>
+
+        </div>
+
+        <div class="certificate-area">
+
+          <p>
+            Certificate No:
+            <span id="certificateNo"></span>
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- STUDENT DETAILS -->
+
+      <div class="student-section">
+
+        <div class="student-left">
+
+          <table class="student-table">
+
+            <tr>
+              <td>Student's Name</td>
+              <td id="studentName"></td>
+            </tr>
+
+            <tr>
+              <td>Father's Name</td>
+              <td id="fatherName"></td>
+            </tr>
+
+            <tr>
+              <td>Class_Sec</td>
+              <td id="studentClass"></td>
+            </tr>
+
+            <tr>
+              <td>Roll Number</td>
+              <td id="rollNumber"></td>
+            </tr>
+
+          </table>
+
+        </div>
+
+        <div class="grading-right">
+
+          <table class="grade-table">
+
+            <tr>
+              <th>Scale</th>
+              <th>Letter Grade</th>
+              <th>Performance</th>
+            </tr>
+
+            <tr>
+              <td>90 - 100</td>
+              <td>AA</td>
+              <td>Outstanding</td>
+            </tr>
+
+            <tr>
+              <td>80 - 89</td>
+              <td>A+</td>
+              <td>Excellent</td>
+            </tr>
+
+            <tr>
+              <td>60 - 79</td>
+              <td>A</td>
+              <td>Very Good</td>
+            </tr>
+
+            <tr>
+              <td>45 - 59</td>
+              <td>B+</td>
+              <td>Good</td>
+            </tr>
+
+            <tr>
+              <td>35 - 44</td>
+              <td>B</td>
+              <td>Satisfactory</td>
+            </tr>
+
+            <tr>
+              <td>25 - 34</td>
+              <td>C</td>
+              <td>Marginal</td>
+            </tr>
+
+            <tr>
+              <td>Below 25</td>
+              <td>D</td>
+              <td>Disqualification</td>
+            </tr>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+      <!-- SUBJECT TABLE -->
+
+      <div class="assessment-title">
+        Assessment of Academic Areas
+      </div>
+
+      <table class="result-table">
+
+        <thead>
+
+          <tr>
+
+            <th rowspan="2">Compulsory Subject</th>
+
+            <th colspan="3">Full Marks</th>
+
+            <th colspan="5">Obtained Marks</th>
+
+          </tr>
+
+          <tr>
+
+            <th>Written</th>
+            <th>Oral</th>
+            <th>Total</th>
+
+            <th>Written</th>
+            <th>Oral</th>
+            <th>Total</th>
+            <th>Percentage</th>
+            <th>Sub. Grade</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="subjectTableBody">
+
+        </tbody>
+
+      </table>
+
+
+      <!-- FINAL RESULT -->
+
+      <div class="final-summary">
+
+        <table>
+
+          <tr>
+
+            <th>Full Marks</th>
+            <th>Obt. Marks</th>
+            <th>Percentage</th>
+            <th>Grade</th>
+            <th>Rank</th>
+
+          </tr>
+
+          <tr>
+
+            <td id="grandFullMarks"></td>
+            <td id="grandTotal"></td>
+            <td id="grandPercentage"></td>
+            <td id="grandGrade"></td>
+            <td id="grandRank"></td>
+
+          </tr>
+
+        </table>
+
+      </div>
+
+
+      <!-- VERIFIED -->
+
+      <div class="verified-note">
+        ✅ Result Verified - Shripur Kindergarten School
+      </div>
+
+
+      <!-- FOOTER BOX -->
+
+      <div class="signature-area">
+
+        <div class="sign-box">
+          <div class="tick">✅</div>
+          <div class="sign-title">Class Teacher</div>
+        </div>
+
+        <div class="sign-box">
+          <div class="tick">✅</div>
+          <div class="sign-title">
+            Jagat Infrastructure<br>
+            Algorithm & JS
+          </div>
+        </div>
+
+        <div class="sign-box">
+          <div class="tick">✅</div>
+          <div class="sign-title">Principal</div>
+        </div>
+
+      </div>
+
+
+      <!-- CREDIT -->
+
+      <div class="credit">
+        Design by_Jagat
+      </div>
+
+
+      <!-- ACTION BUTTONS -->
+
+      <div class="action-buttons">
+
+        <button onclick="printResult()">
+          Print
+        </button>
+
+        <button onclick="downloadPDF()">
+          Download
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
 </body>
 </html>
